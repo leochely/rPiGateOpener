@@ -1,6 +1,20 @@
 <!DOCTYPE html>
-  <form action="exec.php" method="post">
+  <?php
+    if(isset($_POST['run'])){
+      shell_exec("python3 helloworld.py");
+  }
+  ?>
+
+  <form action="" method="post">
     Test
-    <button name="subject" type="submit" value="HTML">Run Script</button>
+    <input type="submit" name='run' value=<?php
+    $gate = fopen("gate.txt", "r") or die("Unable to open file!");
+    if(fread($gate,filesize("gate.txt")) == 'opened'){
+      echo '\'close\'';
+    }
+    else{
+      echo '\'open\'';
+    }
+    ?> />
   </form>
 </html>
