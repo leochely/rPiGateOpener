@@ -1,7 +1,18 @@
 <!DOCTYPE html>
   <?php
     if(isset($_POST['run'])){
-      shell_exec("python3 helloworld.py");
+		$gate = fopen("gate.txt", "r") or die("Unable to open file!");
+		$state = fread($gate, filesize("gate.txt"));
+		fclose($gate);
+		
+		$gate = fopen("gate.txt", "w") or die("Unable to open file!");
+		if($state == 'opened'){
+			fwrite($gate,'closed');
+		}
+		else{
+			fwrite($gate,'opened');
+		}
+		fclose($gate);
   }
   ?>
 
@@ -15,6 +26,7 @@
     else{
       echo '\'open\'';
     }
+	fclose($gate);
     ?> />
   </form>
 </html>
